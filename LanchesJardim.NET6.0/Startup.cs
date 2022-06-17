@@ -1,4 +1,7 @@
 ﻿using LanchesJardim.NET6._0.context;
+using LanchesJardim.NET6._0.Interfaces;
+using LanchesJardim.NET6._0.Repositories;
+using LanchesJardim.NET6._0.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanchesJardim6._0;
@@ -16,6 +19,10 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+        services.AddTransient<ILancheRepository, LancheRepository>();
+        services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 
         services.AddControllersWithViews();
     }
