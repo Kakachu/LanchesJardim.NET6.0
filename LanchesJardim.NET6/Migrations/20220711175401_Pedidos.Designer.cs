@@ -4,6 +4,7 @@ using LanchesJardim.NET6.context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LanchesJardim.NET6.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220711175401_Pedidos")]
+    partial class Pedidos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,9 +198,6 @@ namespace LanchesJardim.NET6.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PedidoDetalheId"), 1L, 1);
 
-                    b.Property<int>("LancheId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
 
@@ -208,11 +207,14 @@ namespace LanchesJardim.NET6.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
+                    b.Property<int>("lancheId")
+                        .HasColumnType("int");
+
                     b.HasKey("PedidoDetalheId");
 
-                    b.HasIndex("LancheId");
-
                     b.HasIndex("PedidoId");
+
+                    b.HasIndex("lancheId");
 
                     b.ToTable("PedidoDetalhes");
                 });
@@ -239,15 +241,15 @@ namespace LanchesJardim.NET6.Migrations
 
             modelBuilder.Entity("LanchesJardim.NET6.Models.PedidoDetalhe", b =>
                 {
-                    b.HasOne("LanchesJardim.NET6.Models.Lanche", "Lanche")
-                        .WithMany()
-                        .HasForeignKey("LancheId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LanchesJardim.NET6.Models.Pedido", "Pedido")
                         .WithMany("PedidoItens")
                         .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LanchesJardim.NET6.Models.Lanche", "Lanche")
+                        .WithMany()
+                        .HasForeignKey("lancheId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
