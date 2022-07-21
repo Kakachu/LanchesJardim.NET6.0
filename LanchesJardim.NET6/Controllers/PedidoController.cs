@@ -1,5 +1,6 @@
 ﻿using LanchesJardim.NET6.Models;
 using LanchesJardim.NET6.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesJardim.NET6.Controllers
@@ -14,12 +15,15 @@ namespace LanchesJardim.NET6.Controllers
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult Checkout()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {

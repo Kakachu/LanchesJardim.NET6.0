@@ -6,13 +6,14 @@
     <title>@ViewData["Title"] - LanchesJardim</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/lanchemac2.png" widht="50" height="50" />
+                    <img src="~/images/burgerlogo.png" widht="45" height="45" />
                     LanchesJardim
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,9 +22,11 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     @await Component.InvokeAsync("CarrinhoCompraResumo")
-                    @await Component.InvokeAsync("CategoriaMenu")
+                    @await Component.InvokeAsync("CategoriaMenu")      
                     <a class="nav-link text-light" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a>
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    @await Html.PartialAsync("_LoginPartial")
+                    
                 </div>
             </div>
         </nav>

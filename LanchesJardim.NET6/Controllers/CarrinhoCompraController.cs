@@ -1,6 +1,7 @@
 ﻿using LanchesJardim.NET6.Models;
 using LanchesJardim.NET6.Repositories.Interfaces;
 using LanchesJardim.NET6.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesJardim.NET6.Controllers
@@ -29,6 +30,7 @@ namespace LanchesJardim.NET6.Controllers
             return View(carrinhoCompraVM);
         }
 
+        [Authorize]
         public IActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches
@@ -41,6 +43,7 @@ namespace LanchesJardim.NET6.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
