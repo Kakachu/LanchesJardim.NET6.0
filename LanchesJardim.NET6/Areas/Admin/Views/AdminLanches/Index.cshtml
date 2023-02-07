@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LanchesJardim.NET6.Models.Lanche>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LanchesJardim.NET6.Models.Lanche>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,12 +21,24 @@
     </script>
 </head>
 <div class="container-xl">
-    <div class="table-responsive">
+    <div class="table">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8">
                         <h1>Lanches</h1>
+
+                        <form method="get" class="form-inline">
+                            <input name="filter" class="form-control" placeholder="filtro" value="@Model.RouteValue["Filter"]"/>
+                            <button type="submit" class="btn btn-info">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Procurar
+                            </button>
+                        </form>
+
+                        Total de Lanches: @Model.TotalRecordCount
+                        <div>
+                            <vc:pager paging-list="@Model"></vc:pager>
+                        </div>
                         <p>
                             <a asp-action="Create">Criar novo Lanche</a>
                         </p>
@@ -43,16 +55,7 @@
                             @Html.DisplayNameFor(model => model.DescricaoCurta)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DescricaoDetalhada)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Preco)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ImagemUrl)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ImagemThumbnailUrl)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.IsLanchePreferido)
@@ -77,16 +80,7 @@
                                 @Html.DisplayFor(modelItem => item.DescricaoCurta)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DescricaoDetalhada)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Preco)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ImagemUrl)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ImagemThumbnailUrl)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.IsLanchePreferido)
@@ -97,7 +91,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Categorias.CategoriaNome)
                             </td>
-                            <td>
+                            <td class="text-nowrap">
                                 <a asp-action="Edit" asp-route-id="@item.CategoriaId" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a asp-action="Details" asp-route-id="@item.CategoriaId" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                 <a asp-action="Delete" asp-route-id="@item.CategoriaId" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>

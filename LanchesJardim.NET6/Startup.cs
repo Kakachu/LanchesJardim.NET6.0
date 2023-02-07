@@ -6,6 +6,7 @@ using LanchesJardim.NET6.Repositories.Interfaces;
 using LanchesJardim.NET6.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesJardim.NET6;
 public class Startup
@@ -50,12 +51,19 @@ public class Startup
                     politica.RequireRole("Admin");
                 });
         });
-            
+
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddControllersWithViews();
+
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
+
 
         services.AddMemoryCache();
         services.AddSession();

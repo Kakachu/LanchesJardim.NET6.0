@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LanchesJardim.NET6.Models.Pedido>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LanchesJardim.NET6.Models.Pedido>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,12 +22,24 @@
 </head>
 
 <div class="container-xl">
-    <div class="table-responsive">
+    <div class="table">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8">
                         <h1>Pedidos</h1>
+
+                        <form method="get" class="form-inline">
+                            <input name="filter" class="form-control" placeholder="filtro" value="@Model.RouteValue["Filter"]"/>
+                            <button type="submit" class="btn btn-info">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Procurar
+                            </button>
+                        </form>
+
+                        Total de Pedidos : @Model.TotalRecordCount
+                        <div>
+                            <vc:pager paging-list="@Model"></vc:pager>
+                        </div>
 
                         <p>
                             <a asp-action="Create">Criar novo pedido</a>
@@ -68,9 +80,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.PedidoEnviado)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PedidoEntregueEm)
-                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -78,7 +87,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            <td class="text-nowrap">
                                 @Html.DisplayFor(modelItem => item.Nome)
                             </td>
                             <td>
@@ -108,10 +117,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.PedidoEnviado)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
-                            </td>
-                            <td>
+                            <td class="text-nowrap">
                                 <a asp-action="Edit" asp-route-id="@item.PedidoId" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a asp-action="Details" asp-route-id="@item.PedidoId" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                 <a asp-action="Delete" asp-route-id="@item.PedidoId" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
